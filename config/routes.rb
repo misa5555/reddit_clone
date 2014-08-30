@@ -5,4 +5,6 @@ Reddit::Application.routes.draw do
   resources :subs, only: [:show] do
     resources :posts, only: [:new, :create, :edit, :update]
   end
+
+  resources :posts
 end
