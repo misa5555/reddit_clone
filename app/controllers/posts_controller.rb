@@ -6,9 +6,9 @@ class PostsController < ApplicationController
 
   def create
     @post = current_user.posts.new(post_params)
-    @post.sub_id = params[:id]
+    @post.sub_id = params[:sub_id]
     if @post.save
-      redirect_to post_url(@post)
+      redirect_to sub_url(@post.sub)
     else
       flash.now[:errors] = @post.errors.full_messages
       render :new
@@ -26,7 +26,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.find(params[:id])
 
     if @post.update_attributes(post_params)
-      redirect_to post_url(@post)
+      redirect_to sub_url(@post.sub)
     else
       render :edit
     end

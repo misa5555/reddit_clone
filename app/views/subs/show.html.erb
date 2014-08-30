@@ -1,4 +1,4 @@
-<h1>topic : <%= @sub.title %></h1>
+<h1>Topic : <%= @sub.title %></h1>
 
 <ul>
   <li>description: <%= @sub.description %></li>
@@ -8,3 +8,31 @@
 <% if current_user.id == @sub.moderator_id %>
 <%= link_to "Edit", edit_sub_url(@sub) %>
 <% end %>
+
+<h2>Related Posts</h2>
+<table>
+  <tr>
+    <td>Title</td>
+    <td>URL</td>
+    <td>Content</td>
+    <td>Posted by</td>
+    <td>Edit</td>
+  </tr>
+  <% @sub.posts.each do |post| %>
+    <tr>
+      <td><%= post.title %></td>
+      <td><%= post.url %> </td>
+      <td><%= post.content %></td>
+      <td><%= post.author.username %></td>
+      <td>
+        <% if current_user.id == post.author_id %>
+          <%= link_to "Edit", edit_sub_post_url(@sub, post) %>
+        <% else %>
+          can not edit
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= render "posts/new", sub: @sub %>

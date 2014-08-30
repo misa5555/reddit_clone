@@ -20,6 +20,7 @@ class SubsController < ApplicationController
 
   def show
     @sub = Sub.find(params[:id])
+    @post = Post.new
     render :show
   end
 
